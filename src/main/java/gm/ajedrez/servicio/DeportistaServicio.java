@@ -1,7 +1,7 @@
-package gm.Ajedrez.servicio;
+package gm.ajedrez.servicio;
 
-import gm.Ajedrez.modelo.Deportista;
-import gm.Ajedrez.repositorio.DeportistaRepositorio;
+import gm.ajedrez.modelo.Deportista;
+import gm.ajedrez.repositorio.DeportistaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package gm.Ajedrez.servicio;
+package gm.ajedrez.servicio;
 
-import gm.Ajedrez.modelo.Deportista;
+import gm.ajedrez.modelo.Deportista;
 
 import java.util.List;
 

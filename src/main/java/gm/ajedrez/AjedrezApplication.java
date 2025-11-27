@@ -1,13 +1,12 @@
-package gm.Ajedrez;
+package gm.ajedrez;
 
-import gm.Ajedrez.modelo.Deportista;
-import gm.Ajedrez.servicio.IDeportistaServicio;
+import gm.ajedrez.modelo.Deportista;
+import gm.ajedrez.servicio.IDeportistaServicio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Scanner;
 
