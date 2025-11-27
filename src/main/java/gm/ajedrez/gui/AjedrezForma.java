@@ -1,11 +1,14 @@
 package gm.ajedrez.gui;
 
+import gm.ajedrez.modelo.Deportista;
 import gm.ajedrez.servicio.IDeportistaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @Component
 public class AjedrezForma extends JFrame{
@@ -24,6 +27,7 @@ public class AjedrezForma extends JFrame{
     public AjedrezForma(IDeportistaServicio deportistaServicio){
         this.deportistaServicio = deportistaServicio;
         listarForma();
+        agregarButton.addActionListener(e -> agregarDeportista());
     }
 
     private void listarForma(){
@@ -60,5 +64,37 @@ public class AjedrezForma extends JFrame{
             };
             this.tablaModelDeportista.addRow(renglonDeportista);
         });
+    }
+
+    private void agregarDeportista(){
+        if(nombreTexto.getText().equals("")){
+            mostrarMensaje("Proporcione un nombre");
+            nombreTexto.requestFocusInWindow();
+            return;
+        }
+        if(edadTexto.getText().equals("")){
+            mostrarMensaje("Proporcione una edad");
+            edadTexto.requestFocusInWindow();
+            return;
+        }
+        var nombre = nombreTexto.getText();
+        var apellido = apellidoTexto.getText();
+        var edad = Integer.parseInt(edadTexto.getText());
+        var deportista = new Deportista();
+        deportista.setNombre(nombre);
+        deportista.setApellido(apellido);
+        deportista.setEdad(edad);
+        this.deportistaServicio.guardarDeportista(deportista);
+        limpiarFormulario();
+        listarDeportistas();
+    }
+    private void limpiarFormulario(){
+        nombreTexto.setText("");
+        apellidoTexto.setText("");
+        edadTexto.setText("");
+    }
+
+    private void mostrarMensaje(String mensaje){
+        JOptionPane.showMessageDialog(this, mensaje);
     }
 }
