@@ -38,6 +38,8 @@ public class AjedrezForma extends JFrame{
                 cargarDeportistaSeleccionado();
             }
         });
+        eliminarButton.addActionListener(e -> eliminarDeportista());
+        limpiarButton.addActionListener(e -> limpiarFormulario());
     }
 
     private void listarForma(){
@@ -113,6 +115,23 @@ public class AjedrezForma extends JFrame{
             this.apellidoTexto.setText(apellido);
             var edad = this.deportistaTabla.getModel().getValueAt(renglon, 3).toString();
             this.edadTexto.setText(edad);
+        }
+    }
+
+    private void eliminarDeportista(){
+        var renglon = this.deportistaTabla.getSelectedRow();
+        if(renglon != -1){
+            var idDeportistaStr = this.deportistaTabla.getModel().getValueAt(renglon, 0).toString();
+            this.idDeportista = Integer.parseInt(idDeportistaStr);
+            var deportista = new Deportista();
+            deportista.setId(this.idDeportista);
+            deportistaServicio.eliminarDeportista(deportista);
+            mostrarMensaje("Deportista con Id " + idDeportista + " eliminado");
+            limpiarFormulario();
+            listarDeportistas();
+        }
+        else{
+            mostrarMensaje("Debe seleccionar un registro de la tabla para eliminar");
         }
     }
 
