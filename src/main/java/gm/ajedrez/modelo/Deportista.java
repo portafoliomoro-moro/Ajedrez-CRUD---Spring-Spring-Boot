@@ -1,4 +1,4 @@
-package gm.Ajedrez.modelo;
+package gm.ajedrez.modelo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

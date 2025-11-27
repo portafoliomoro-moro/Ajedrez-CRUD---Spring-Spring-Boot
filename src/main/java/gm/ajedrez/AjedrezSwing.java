@@ -1,9 +1,11 @@
-package gm.Ajedrez;
+package gm.ajedrez;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 
-import gm.Ajedrez.gui.AjedrezForma;
+import gm.ajedrez.gui.AjedrezForma;
 import org.springframework.boot.WebApplicationType;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 

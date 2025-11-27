@@ -1,6 +1,6 @@
-package gm.Ajedrez.repositorio;
+package gm.ajedrez.repositorio;
 
-import gm.Ajedrez.modelo.Deportista;
+import gm.ajedrez.modelo.Deportista;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DeportistaRepositorio extends JpaRepository<Deportista, Integer> {
