@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @Component
 public class AjedrezForma extends JFrame{
@@ -22,12 +24,20 @@ public class AjedrezForma extends JFrame{
     private JButton limpiarButton;
     IDeportistaServicio deportistaServicio;
     private DefaultTableModel tablaModelDeportista;
+    private Integer idDeportista;
 
     @Autowired
     public AjedrezForma(IDeportistaServicio deportistaServicio){
         this.deportistaServicio = deportistaServicio;
         listarForma();
         agregarButton.addActionListener(e -> agregarDeportista());
+        deportistaTabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                cargarDeportistaSeleccionado();
+            }
+        });
     }
 
     private void listarForma(){
@@ -80,18 +90,38 @@ public class AjedrezForma extends JFrame{
         var nombre = nombreTexto.getText();
         var apellido = apellidoTexto.getText();
         var edad = Integer.parseInt(edadTexto.getText());
-        var deportista = new Deportista();
-        deportista.setNombre(nombre);
-        deportista.setApellido(apellido);
-        deportista.setEdad(edad);
+        var deportista = new Deportista(this.idDeportista, nombre, apellido, edad);
         this.deportistaServicio.guardarDeportista(deportista);
+        if(this.idDeportista == null){
+            mostrarMensaje("Deportista agregado");
+        }
+        else{
+            mostrarMensaje("Deportista Actualizado");
+        }
         limpiarFormulario();
         listarDeportistas();
     }
+
+    private void cargarDeportistaSeleccionado(){
+        var renglon = this.deportistaTabla.getSelectedRow();
+        if(renglon != -1){
+            var id = this.deportistaTabla.getModel().getValueAt(renglon, 0).toString();
+            this.idDeportista = Integer.parseInt(id);
+            var nombre = this.deportistaTabla.getModel().getValueAt(renglon, 1).toString();
+            this.nombreTexto.setText(nombre);
+            var apellido = this.deportistaTabla.getModel().getValueAt(renglon, 2).toString();
+            this.apellidoTexto.setText(apellido);
+            var edad = this.deportistaTabla.getModel().getValueAt(renglon, 3).toString();
+            this.edadTexto.setText(edad);
+        }
+    }
+
     private void limpiarFormulario(){
         nombreTexto.setText("");
         apellidoTexto.setText("");
         edadTexto.setText("");
+        this.idDeportista = null;
+        this.deportistaTabla.getSelectionModel().clearSelection();
     }
 
     private void mostrarMensaje(String mensaje){
